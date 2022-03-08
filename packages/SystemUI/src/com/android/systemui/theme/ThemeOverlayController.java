@@ -95,8 +95,6 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
     protected static final int NEUTRAL = 0;
     protected static final int ACCENT = 1;
 
-    protected static String SYSTEM_BLACK_THEME = "system_black_theme";
-
     private final ThemeOverlayApplier mThemeManager;
     private final UserManager mUserManager;
     private final BroadcastDispatcher mBroadcastDispatcher;
@@ -523,11 +521,6 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
                     .map(key -> key + " -> " + categoryToPackage.get(key)).collect(
                             Collectors.joining(", ")));
         }
-
-        boolean isBlackTheme = mSecureSettings.getInt(SYSTEM_BLACK_THEME, 0) == 1;
-
-        mThemeManager.setIsBlackTheme(isBlackTheme);
-
         if (mNeedsOverlayCreation) {
             mNeedsOverlayCreation = false;
             mThemeManager.applyCurrentUserOverlays(categoryToPackage, new FabricatedOverlay[] {
@@ -537,8 +530,6 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
             mThemeManager.applyCurrentUserOverlays(categoryToPackage, null, currentUser,
                     managedProfiles);
         }
-
-        mThemeManager.applyBlackTheme(isBlackTheme);
     }
 
     @Override
